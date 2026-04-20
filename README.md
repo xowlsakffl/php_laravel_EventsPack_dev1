@@ -1,0 +1,102 @@
+# EventsPack API
+
+![EventsPack 사용자 화면](https://user-images.githubusercontent.com/50791439/194877006-31264bd4-076c-45b2-8ef3-8ed9916c0cea.jpg)
+
+EventsPack 사용자 서비스와 외부 사이트 빌더 기능을 위한 Laravel API 서버입니다. 회원가입/로그인, Passport 기반 OAuth, 앱 클라이언트 생성, 토큰 검증, 서비스 리소스 접근 권한 확인 흐름을 담당합니다.
+
+포트폴리오 관점에서 핵심은 단순 CRUD가 아니라 외부 서비스가 EventsPack 계정을 통해 인증을 위임받고, API 서버가 사용자 토큰과 리소스 접근 권한을 검증하는 구조를 구현한 점입니다.
+
+## 주요 기능
+
+- 회원가입 및 로그인 API
+- Laravel Passport 기반 access token 발급
+- OAuth client 생성/조회 프록시
+- 외부 앱 로그인 상태 확인
+- bearer token 기반 강제 로그인 처리
+- 요청 컨트롤러/액션 기준 접근 권한 확인
+- 사이트/레이아웃/내비게이션 정보 API 샘플
+- 허용 Origin 기반 CORS 처리
+
+## 기술 스택
+
+- PHP 7.3+
+- Laravel 6
+- Laravel Passport
+- MySQL
+- Guzzle HTTP Client
+- Laravel Mix
+
+## 프로젝트 구조
+
+```text
+app/
+├── Helper/                 # 메시지, 접근 권한 helper
+├── Http/
+│   ├── Controllers/Auth/    # 회원가입, 로그인, OAuth client API
+│   └── Middleware/          # CORS, 강제 로그인, 권한 확인
+├── Providers/
+config/                     # Laravel 및 외부 서비스 설정
+database/                   # migration, factory, seed
+routes/
+├── api.php                  # API endpoint
+└── web.php                  # Passport/OAuth web route
+```
+
+## 실행 준비
+
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan passport:install
+php artisan serve
+```
+
+PowerShell:
+
+```powershell
+composer install
+npm install
+Copy-Item .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan passport:install
+php artisan serve
+```
+
+## 주요 환경변수
+
+| 변수 | 설명 |
+| --- | --- |
+| `APP_URL` | API 서버 URL |
+| `DB_DATABASE` | MySQL 데이터베이스명 |
+| `DB_USERNAME` | DB 계정 |
+| `DB_PASSWORD` | DB 비밀번호 |
+| `EVENTSPACK_API_BASE_URL` | OAuth/로그인 확인을 위임할 EventsPack API 기준 URL |
+| `EVENTSPACK_ALLOWED_ORIGINS` | CORS 허용 Origin 목록. `|`로 구분 |
+
+## 보완한 부분
+
+- Laravel 실행에 필요한 `bootstrap/` 구조 복구
+- `.gitignore`가 `bootstrap` 전체를 제외하던 문제 수정
+- Composer/NPM 메타데이터를 프로젝트명 기준으로 정리
+- PHP 요구 버전을 lock 파일과 맞게 `7.3+`로 정리
+- CORS 허용 Origin을 `.env` 기반 설정으로 분리
+- 외부 EventsPack API URL 하드코딩 제거
+- `logoutRequest`의 잘못된 HTTP method 수정
+- 회원가입 validation이 실패해도 생성 로직으로 진행될 수 있던 흐름 수정
+- 라우트에서 호출되는 `register` 메서드 접근 제어자를 public으로 수정
+- bearer 검증 실패나 사용자 미존재 시 401로 명확히 차단
+
+## 관련 저장소
+
+- 관리자: `php_laravel_EventPack_admin`
+- 사용자 API: `php_laravel_EventsPack_dev1`
+
+## 주의 사항
+
+- 운영 DB와 Passport key는 저장소에 포함하지 않습니다.
+- OAuth 동작에는 `php artisan passport:install`로 생성된 key/client 설정이 필요합니다.
+- 이 프로젝트는 Laravel 6 기반이라 최신 Laravel 프로젝트와 설정 방식이 다릅니다.
