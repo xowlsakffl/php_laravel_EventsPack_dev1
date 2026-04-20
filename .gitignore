@@ -3,7 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
-/bootstrap
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
 /.vscode
 /tests
 .env

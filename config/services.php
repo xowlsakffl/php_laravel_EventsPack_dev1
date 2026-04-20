@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'eventspack' => [
+        'api_base_url' => env('EVENTSPACK_API_BASE_URL', 'https://apisdev1.eventspack.kr'),
+        'allowed_origins' => array_filter(explode('|', env('EVENTSPACK_ALLOWED_ORIGINS', ''))),
+    ],
+
 ];

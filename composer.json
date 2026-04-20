@@ -1,14 +1,15 @@
 {
-    "name": "laravel/laravel",
+    "name": "xowlsakffl/eventspack-api",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Laravel API server for EventsPack authentication, OAuth client, and site builder resources.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "eventspack",
+        "api"
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.3",
