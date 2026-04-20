@@ -94,9 +94,3 @@ php artisan serve
 
 - 관리자: `php_laravel_EventPack_admin`
 - 사용자 API: `php_laravel_EventsPack_dev1`
-
-## 주의 사항
-
-- 운영 DB와 Passport key는 저장소에 포함하지 않습니다.
-- OAuth 동작에는 `php artisan passport:install`로 생성된 key/client 설정이 필요합니다.
-- 이 프로젝트는 Laravel 6 기반이라 최신 Laravel 프로젝트와 설정 방식이 다릅니다.
