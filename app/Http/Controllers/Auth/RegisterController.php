@@ -81,11 +81,6 @@ class RegisterController extends Controller
             'tel.max' => '최대 20자까지 가능합니다.',
         ];
 
-        $validator = Validator::make($data, $rule, $messages);
-        if($validator->fails())
-        {
-            return 'Validation Error.'.$validator->errors();
-        }
         return Validator::make($data, $rule, $messages);
     }
 
@@ -108,13 +103,9 @@ class RegisterController extends Controller
     }
 
     //점검 후 가입처리
-    protected function register(Request $request)
+    public function register(Request $request)
     {
-        // return json_encode($request->all());
-        // return response()->json($request->all());
-
-        // $this->validator($request->all())->validate();
-        $this->validator($request->all());
+        $this->validator($request->all())->validate();
         $user = $this->create($request->all());
 
         $accessToken = $user->createToken('authToken')->accessToken;
